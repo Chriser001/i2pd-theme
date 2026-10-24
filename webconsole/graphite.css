@@ -1,0 +1,241 @@
+/* i2pd webconsole theme "graphite"
+   Every selector is prefixed with `html` so it outranks i2pd's built-in rules,
+   which are emitted into the same <style> block after this file. */
+:root {
+	--bg: #0d1117;
+	--panel: #141a21;
+	--panel-alt: #1a222b;
+	--border: #2a3441;
+	--text: #d6dee8;
+	--muted: #8b98a8;
+	--accent: #b58cff;
+	--accent-dim: #6d4fa1;
+	--ok: #4ac26b;
+	--warn: #e3b341;
+	--err: #f0716f;
+	/* names the built-in rules still read */
+	--main-bg-color: var(--bg);
+	--main-text-color: var(--text);
+	--main-link-color: var(--accent);
+	--main-link-hover-color: var(--bg);
+}
+
+html body {
+	background: var(--bg);
+	color: var(--text);
+	font: 400 15px/1.6 ui-sans-serif, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", Roboto, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+html .header {
+	background: var(--panel);
+	border-bottom: 1px solid var(--border);
+	color: var(--text);
+	font-size: 1rem;
+	font-weight: 500;
+	letter-spacing: .02em;
+	margin: 0;
+	padding: .8rem 1.4rem;
+	text-align: left;
+}
+
+html .header b { color: var(--accent); font-weight: 700; }
+
+html .wrapper {
+	display: flex;
+	gap: 1.6rem;
+	align-items: flex-start;
+	margin: 0 auto;
+	max-width: 78rem;
+	padding: 1.4rem;
+}
+
+html .menu {
+	background: var(--panel);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	display: block;
+	float: none;
+	flex: 0 0 13rem;
+	overflow: hidden;
+	padding: .6rem;
+	position: sticky;
+	top: 1rem;
+}
+
+html .menu br { display: none; }
+html .menu a { display: block; }
+
+html .menu a {
+	border-radius: 7px;
+	color: var(--muted);
+	margin: .1rem 0;
+	padding: .45rem .7rem;
+	white-space: normal;
+}
+
+html .menu a:hover { background: var(--accent-dim); color: #fff; }
+
+html .content {
+	background: var(--panel);
+	border: 1px solid var(--border);
+	border-radius: 10px;
+	color: var(--text);
+	flex: 1 1 auto;
+	font-size: 15px;
+	left: auto;
+	margin-left: 0;
+	max-width: none;
+	overflow: auto;
+	padding: 1.2rem 1.4rem;
+	position: static;
+	width: auto;
+}
+
+html .content > b {
+	color: var(--muted);
+	font-weight: 500;
+}
+
+/* one label per line only, i.e. the stats block that precedes the collapsible
+   panel; the summary lines after it carry several pairs per line and cannot be
+   columnized (values are bare text nodes), so they keep natural width */
+html .content > b:has(~ .slide) {
+	display: inline-block;
+	min-width: 9.5rem;
+}
+
+html a { color: var(--accent); text-decoration: none; }
+html a:hover { background: transparent; color: #d9c6ff; text-decoration: underline; }
+
+html .commands a, html a.button {
+	background: var(--panel-alt);
+	border: 1px solid var(--border);
+	border-radius: 7px;
+	color: var(--text);
+	display: inline-block;
+	margin: .2rem .25rem .2rem 0;
+	padding: .4rem .75rem;
+}
+
+html .commands a:hover, html a.button:hover { background: var(--accent-dim); color: #fff; }
+html a.button.selected { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+
+html .commands { border-top: 1px solid var(--border); margin-top: 1rem; padding-top: .9rem; }
+html .commands br { display: none; }
+
+html table { border-collapse: collapse; margin: .6rem 0; text-align: left; width: 100%; }
+html table th {
+	border-bottom: 1px solid var(--border);
+	color: var(--muted);
+	font-size: .78rem;
+	font-weight: 600;
+	letter-spacing: .06em;
+	padding: .5rem .6rem;
+	text-transform: uppercase;
+}
+html table td { border-bottom: 1px solid rgba(42, 52, 65, .55); padding: .45rem .6rem; }
+html table tbody tr:nth-child(even) { background: rgba(255, 255, 255, .02); }
+html table tbody tr:hover { background: rgba(181, 140, 255, .07); }
+html caption { color: var(--accent); font-size: 1rem; padding-bottom: .5rem; text-align: left; }
+
+html table.services, html table.extaddr { width: auto; }
+html table.services td, html table.extaddr td { border: 0; padding: .42rem 1.8rem .42rem 0; }
+
+html .tcell_left { text-align: left; }
+html .tcell_center { text-align: center; }
+html .tcell_right { text-align: right; }
+
+html .listitem, html .tableitem {
+	color: var(--text);
+	font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+	font-size: 13px;
+	white-space: nowrap;
+}
+
+html .list { border-left: 2px solid var(--border); margin: .5rem 0 0 .2rem; overflow-x: auto; padding-left: .9rem; }
+html .listitem { padding: .12rem 0; }
+
+html .slide { background: var(--panel-alt); border: 1px solid var(--border); border-radius: 8px; margin: .5rem 0; padding: .1rem .8rem; }
+html .slide label { color: var(--accent); cursor: pointer; display: block; font-weight: 600; padding: .35rem 0; }
+html .slide label::after { content: "▸"; float: right; opacity: .6; }
+html .slide:has(input:checked) label::after { content: "▾"; }
+html .slide label:hover { background: transparent; color: #d9c6ff; }
+html .slide div.slidecontent {
+	margin-top: .4rem;
+	padding: .6rem 0 .2rem;
+	border-top: 1px dashed var(--border);
+	display: none;
+}
+html .slide [type="checkbox"] { display: none; }
+html .slide [type="checkbox"]:checked ~ div.slidecontent { display: block; }
+
+html .tunnel { border-radius: 999px; font-size: .8rem; font-weight: 600; padding: .1rem .5rem; }
+html .tunnel.established { background: rgba(74, 194, 107, .15); color: var(--ok); }
+html .tunnel.expiring { background: rgba(227, 179, 65, .15); color: var(--warn); }
+html .tunnel.failed { background: rgba(240, 113, 111, .15); color: var(--err); }
+html .tunnel.building { background: rgba(139, 152, 168, .15); color: var(--muted); }
+
+html .enabled, html .disabled { background: rgba(74, 194, 107, .15); border-radius: 999px; color: var(--ok); font-size: .82rem; font-weight: 600; line-height: 1.6; }
+html .disabled { background: rgba(240, 113, 111, .15); color: var(--err); }
+/* these classes land on the <td> itself, so the padding rule has to outrank
+   `table.services td` above; inline-block here would break the column grid */
+html table.services td.enabled, html table.services td.disabled { padding: .12rem 1rem; }
+
+html input, html select, html button[type=submit], html textarea {
+	background: var(--panel-alt);
+	border: 1px solid var(--border);
+	border-radius: 7px;
+	color: var(--text);
+	font-size: 14px;
+	padding: .4rem .6rem;
+}
+html textarea { font-family: ui-monospace, Menlo, Consolas, monospace; width: 100%; }
+html input:focus, html select:focus, html textarea:focus { border-color: var(--accent); outline: none; }
+html button[type=submit]:hover { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+html option { background: var(--panel-alt); color: var(--text); }
+
+/* block-level only for standalone notes; hop markers are inline <small> */
+html .content > small { display: block; }
+html small { color: var(--muted); font-size: .82rem; }
+html hr { border: 0; border-top: 1px solid var(--border); margin: 1rem 0; }
+html ::selection { background: var(--accent-dim); color: #fff; }
+html * { scrollbar-color: var(--border) transparent; scrollbar-width: thin; }
+
+html a:focus-visible, html label:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+html input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; }
+html .streamdest { max-width: 240px; overflow: hidden; text-overflow: ellipsis; width: 120px; }
+
+@media (max-width: 900px) {
+	html .wrapper { align-items: stretch; flex-direction: column; padding: 1rem; }
+	html .menu { flex: 0 0 auto; overflow: visible; position: static; white-space: normal; width: 100%; }
+	html .menu a { display: inline-block; margin: .15rem .2rem; }
+	html .content { padding: 1rem; width: auto; }
+	html .content > b:has(~ .slide) { min-width: 0; display: inline; }
+}
+
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg: #eef1f5;
+		--panel: #ffffff;
+		--panel-alt: #f6f8fa;
+		--border: #d0d7de;
+		--text: #1f2328;
+		--muted: #59636e;
+		--accent: #6639ba;
+		--accent-dim: #e6dcf7;
+		--ok: #1a7f37;
+		--warn: #9a6700;
+		--err: #cf222e;
+	}
+	html .menu a:hover, html .commands a:hover, html a.button:hover, html .slide label:hover {
+		background: var(--accent);
+		color: #fff;
+	}
+	html a:hover { color: var(--accent); }
+	html table td { border-bottom-color: #e8ecf0; }
+	html table tbody tr:nth-child(even) { background: #fafbfc; }
+	html table tbody tr:hover { background: #f3ecfd; }
+	html .tunnel, html .enabled, html .disabled { font-weight: 700; }
+}
